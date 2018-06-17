@@ -1,0 +1,28 @@
+{%  extends "base.html" %}
+{% block title %} Ultimos posts publicados {%  endblock %}
+{% block body %}
+
+
+    {%  for post in object_list %}
+        <a href="/blogs/{{ post.blog.owner.username }}/{{ post.pk }}" style="text-decoration: none;">
+        <h3>{{ post.blog }}  --  {{ post.titulo }}</h3>
+        <h5>Publicado por {{ post.blog.owner.first_name }} {{ post.blog.owner.last_name }} el {{ post.fechapublicacion }}</h5>
+        <div>
+            <img src="{{ post.URLimagen.url }}" alt="{{ post.name }}" title="{{ post.name }}" width="600px">
+            <p>{{ post.texto }}</p>
+
+
+        <h5>Categoria:
+            {%  for categoria in post.categorias.all %}
+
+               - {{ categoria }} -
+
+            {%  endfor %}
+        </h5>
+
+        </div>
+
+        </a>
+        <hr>
+    {%  endfor %}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <h1>Wordplease</h1>
+    <p>Plataforma de blogging</p>
+
+    {% for post in items %}
+            <div class="post">
+                <img src="{{ post.URLimagen.url }}" alt="{{ post.titulo }}" title="{{ post.titulo }}">
+                <p>
+                    {{ post.titulo}} <strong> {{ post.fechapublicacion }} </strong>
+                </p>
+            </div>
+    {% endfor %}
+{% endblock %}

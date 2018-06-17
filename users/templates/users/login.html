@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{%block title %} Login {% endblock %}
+
+{% block body %}
+
+{% if messages %}
+    {% for message in messages %}
+        <div style="color:red">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+<form method="post" novalidate>
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">Login</button>
+</form>
+
+{% endblock %}
