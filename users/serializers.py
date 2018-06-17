@@ -3,16 +3,27 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 
-class UserListSerializer(serializers.Serializer):
+class BlogsSerializer(serializers.Serializer):
+    #owner = serializers.ReadOnlyField()
+    #name = serializers.CharField()
+    #creation_date = serializers.DateTimeField()
+    #description = serializers.CharField()
+    #image = serializers.FileField()
+    #active = serializers.BooleanField
+    id = serializers.ReadOnlyField()
+    name = serializers.CharField()
+    description = serializers.CharField()
 
+
+class UserSerializerList(serializers.Serializer):
     id = serializers.ReadOnlyField()
     username = serializers.CharField()
 
 
-class UserSerializer(UserListSerializer):
-
+class UserSerializer(UserSerializerList):
     first_name = serializers.CharField()
     last_name = serializers.CharField()
+
     password = serializers.CharField()
 
     def create(self, validated_data):
@@ -29,6 +40,5 @@ class UserSerializer(UserListSerializer):
 
     def validate_username(self, username):
         if (self.instance is None or self.instance.username != username) and User.objects.filter(username=username).exists():
-            raise ValidationError('Ya existe un usuario con ese username')
-
+            raise ValidationError('Username exists in database')
         return username

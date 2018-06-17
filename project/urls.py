@@ -19,9 +19,10 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-
+from ads.api import PostListAPI, PostDetailAPI, UserPostListAPI
 from ads.views import CreatePostView, HomeView, PostDetailView, BlogDetailView
 from blogs.views import BlogListView
+from users.api import BlogsAPI, UsersAPI, UserDetailAPI
 from users.views import LoginView, LogoutView, CreateUserView
 
 
@@ -41,6 +42,13 @@ urlpatterns = [
     path('new-post', CreatePostView.as_view(), name='new_post'),
     path('signup', CreateUserView.as_view(), name='new_user'),
 
+
+    path('api/v1/users/', UsersAPI.as_view(), name='api-users'),
+    path('api/v1/users/<int:pk>/', UserDetailAPI.as_view(), name='api-user-detail'),
+    path('api/v1/posts/', PostListAPI.as_view(), name='api-posts'),
+    path('api/v1/posts/<int:pk>/', PostDetailAPI.as_view(), name='api-post-detail'),
+    path('api/v1/posts/mine/', UserPostListAPI.as_view(), name='api-user-mine'),
+    path('api/v1/blogs/', BlogsAPI.as_view(), name='api-blogs'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
